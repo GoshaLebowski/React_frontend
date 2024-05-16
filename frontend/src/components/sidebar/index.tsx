@@ -1,9 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {useStyles} from "./styles";
+import React, {useEffect, useState, JSX} from 'react';
 import {
     Box,
     Drawer,
-    Divider,
     IconButton,
     List,
     ListItem,
@@ -14,17 +12,15 @@ import {
     useTheme,
 } from '@mui/material';
 import {
-    ChevronLeft,
-    HomeOutlined,
-    ChevronRight,
-    SsidChart,
-    MenuBook,
-    Settings,
     LogoutOutlined,
     ChevronLeftOutlined,
+    ChevronRightOutlined,
 } from '@mui/icons-material';
 import {useLocation, useNavigate} from "react-router-dom";
 import {FlexBetween} from "../flex-beetween";
+import {navMenu} from "../../common/moks/navigate";
+import Logo from '../../assets/images/sidebar/logo.svg'
+import {useStyles} from "./styles";
 
 export const SidebarComponent = (props: any) => {
     const [active, setActive] = useState('')
@@ -37,6 +33,21 @@ export const SidebarComponent = (props: any) => {
     useEffect(() => {
         setActive(pathname.substring(1))
     }, [pathname]);
+
+    const renderNavMenu = navMenu.map((item: any): JSX.Element => {
+        return (
+            <ListItem key={item.id}>
+                <ListItemButton className={classes.navItem} onClick={() => navigate(`${item.path}`)}>
+                    <ListItemIcon>
+                        {item.icon}
+                    </ListItemIcon>
+                    <ListItemText>
+                        <Typography variant={'body1'}>{item.name}</Typography>
+                    </ListItemText>
+                </ListItemButton>
+            </ListItem>
+        )
+    })
 
     return (
         <Box component={'nav'}>
@@ -56,25 +67,44 @@ export const SidebarComponent = (props: any) => {
                         }
                     }}
                 >
-                    <Box width={'100%'}>
+                    <Box className={classes.navBlock}>
                         <Box>
                             <FlexBetween>
-                                <Box
-                                    display={'flex'}
-                                    alignItems={'center'}
-                                    gap={'10px'}
-                                >
-                                    <Typography>
-                                        Demo
-                                    </Typography>
+                                <Box className={classes.brand}>
+                                    <img src={Logo} alt={'Logo image'}/>
+                                    <ListItemText>
+                                        <Typography
+                                            variant={'h1'}
+                                            className={classes.brandTitle}
+                                        >
+                                            Demo
+                                        </Typography>
+                                    </ListItemText>
                                 </Box>
                                 {!isNonMobile && (
-                                    <IconButton onClick={() => setIsOpen(true)}>
+                                    <IconButton onClick={() => setIsOpen(false)}>
                                         <ChevronLeftOutlined/>
                                     </IconButton>
                                 )}
                             </FlexBetween>
                         </Box>
+                        <List className={classes.navList}>
+                            {renderNavMenu}
+                        </List>
+                    </Box>
+                    <Box width={'100%'}>
+                        <List>
+                            <ListItem>
+                                <ListItemButton className={classes.navItem}>
+                                    <ListItemIcon>
+                                        <LogoutOutlined/>
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        <Typography>Logout</Typography>
+                                    </ListItemText>
+                                </ListItemButton>
+                            </ListItem>
+                        </List>
                     </Box>
                 </Drawer>
             )}
