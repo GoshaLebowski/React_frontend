@@ -1,9 +1,6 @@
 import {
     HomeOutlined,
     AutoGraphOutlined,
-    ChevronRight,
-    SsidChart,
-    MenuBook,
     MenuBookOutlined,
     SettingsOutlined,
 } from '@mui/icons-material';
