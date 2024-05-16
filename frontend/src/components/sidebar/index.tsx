@@ -12,9 +12,8 @@ import {
     useTheme,
 } from '@mui/material';
 import {
-    LogoutOutlined,
     ChevronLeftOutlined,
-    ChevronRightOutlined,
+    LogoutOutlined,
 } from '@mui/icons-material';
 import {useLocation, useNavigate} from "react-router-dom";
 import {FlexBetween} from "../flex-beetween";
@@ -71,7 +70,7 @@ export const SidebarComponent = (props: any) => {
                         <Box>
                             <FlexBetween>
                                 <Box className={classes.brand}>
-                                    <img src={Logo} alt={'Logo image'}/>
+                                    <img src={Logo} alt='Logo image'/>
                                     <ListItemText>
                                         <Typography
                                             variant={'h1'}
