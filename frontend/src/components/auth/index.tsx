@@ -11,11 +11,8 @@ import {AppErrors} from "../../common/errors";
 import {useForm} from "react-hook-form";
 
 const AuthRootComponent: React.FC = (): JSX.Element => {
-    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [repeatPassword, setRepeatPassword] = useState('')
-    const [firstName, setFirstName] = useState('')
-    const [username, setUsername] = useState('')
     const location = useLocation();
     const dispatch = useAppDispatch()
     const navigate = useNavigate();
@@ -46,10 +43,10 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
             if (password === repeatPassword) {
                 try {
                     const userData = {
-                        email,
-                        password,
-                        firstName,
-                        username
+                        email: data.email,
+                        password: data.password,
+                        firstName: data.firstName,
+                        username: data.username
                     }
                     const newUser = await instance.post("auth/register", userData);
                     await dispatch(login(newUser.data))
@@ -85,12 +82,9 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
                                 errors={errors}
                             /> : location.pathname === '/register'
                                 ? <RegisterPage
-                                    setEmail={setEmail}
-                                    setPassword={setPassword}
-                                    setRepeatPassword={setRepeatPassword}
-                                    setFirstName={setFirstName}
-                                    setUsername={setUsername}
                                     navigate={navigate}
+                                    register={register}
+                                    errors={errors}
                                 /> : null
                     }
                 </Box>

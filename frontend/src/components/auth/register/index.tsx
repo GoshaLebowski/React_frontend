@@ -3,7 +3,11 @@ import {Button, TextField, Typography} from "@mui/material";
 import {IPropsRegister} from "../../../common/types/auth";
 
 const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Element => {
-    const {setPassword, setRepeatPassword, setUsername, setFirstName, setEmail, navigate} = props
+    const {
+        register,
+        errors,
+        navigate
+    } = props
 
     return (
         <>
@@ -29,7 +33,9 @@ const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Elem
                 label="Имя"
                 variant="outlined"
                 placeholder={'Введите ваш имя'}
-                onChange={(e) => setFirstName(e.target.value)}
+                {...register('firstName', {
+                    required: 'Это обязательное поле',
+                })}
             />
             <TextField
                 fullWidth={true}
@@ -37,7 +43,9 @@ const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Elem
                 label="Username"
                 variant="outlined"
                 placeholder={'Введите ваш username'}
-                onChange={(e) => setUsername(e.target.value)}
+                {...register('username', {
+                    required: 'Это обязательное поле',
+                })}
             />
             <TextField
                 fullWidth={true}
@@ -45,7 +53,9 @@ const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Elem
                 label="Email"
                 variant="outlined"
                 placeholder={'Введите ваш email'}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register('email', {
+                    required: 'Это обязательное поле',
+                })}
             />
             <TextField
                 type={'password'}
@@ -54,7 +64,6 @@ const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Elem
                 label="Password"
                 variant="outlined"
                 placeholder={'Введите ваш пароль'}
-                onChange={(e) => setPassword(e.target.value)}
             />
             <TextField
                 type={'password'}
@@ -63,7 +72,6 @@ const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Elem
                 label="Repeat password"
                 variant="outlined"
                 placeholder={'Повторите ваш пароль'}
-                onChange={(e) => setRepeatPassword(e.target.value)}
             />
             <Button
                 type={'submit'}
