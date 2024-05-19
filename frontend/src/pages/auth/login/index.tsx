@@ -1,7 +1,7 @@
 import React, {JSX} from 'react';
 import {TextField, Typography} from "@mui/material";
 import {IPropsLogin} from "../../../common/types/auth";
-import {AppButton} from "../../app-button";
+import {AppButton} from "../../../components/app-button";
 
 const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
     const {navigate, register, errors, classes} = props;

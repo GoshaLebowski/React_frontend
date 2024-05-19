@@ -1,7 +1,7 @@
 import React, {JSX} from 'react';
 import {TextField, Typography} from "@mui/material";
 import {IPropsRegister} from "../../../common/types/auth";
-import {AppButton} from "../../app-button";
+import {AppButton} from "../../../components/app-button";
 
 const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Element => {
     const {
