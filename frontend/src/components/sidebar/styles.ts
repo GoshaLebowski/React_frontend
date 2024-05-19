@@ -22,6 +22,9 @@ export const useStyles = makeStyles((theme: Theme) => {
                     ? colors.white.DEFAULT :
                     colors.black.DEFAULT}`
             },
+            navList: {
+                marginBottom: '55px'
+            },
             navItem: {
                 '&:hover': {
                     backgroundColor: "#1900D5 !important",
@@ -32,8 +35,10 @@ export const useStyles = makeStyles((theme: Theme) => {
                     }
                 }
             },
-            navList: {
-                marginBottom: '55px'
+            active: {
+                backgroundColor: `#1900D5 !important`,
+                color: '#fff !important',
+                borderRadius: '4px !important',
             }
         }
     )
