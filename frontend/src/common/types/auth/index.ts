@@ -1,24 +1,38 @@
 import {FieldErrors, FieldValues, UseFormRegister} from "react-hook-form";
 
+export interface LoginFormValues {
+    email: string;
+    password: string;
+}
+
+export interface RegisterFormValues {
+    firstName: string;
+    username: string;
+    email: string;
+    password: string;
+}
+
 export interface IPropsLogin<
     TFieldValues extends FieldValues = FieldValues,
+    TContext extends FieldValues = any,
 > {
-    navigate: (url: string) => void;
-    register: UseFormRegister<TFieldValues>
-    errors: FieldErrors<TFieldValues>
+    navigate: (to: string) => void;
+    register: UseFormRegister<TContext>;
+    errors: FieldErrors<TFieldValues>;
 }
 
 export interface IPropsRegister<
     TFieldValues extends FieldValues = FieldValues,
+    TContext extends FieldValues = any,
 > {
-    register: UseFormRegister<TFieldValues>
-    errors: FieldErrors<TFieldValues>
-    navigate: (url: string) => void;
+    navigate: (to: string) => void;
+    register: UseFormRegister<TContext>;
+    errors: FieldErrors<TFieldValues>;
 }
 
 export interface IAuthState {
     user: IPublicUser,
-    isLogged: boolean;
+    isLogged: boolean
 }
 
 interface IPublicUser {
@@ -27,8 +41,8 @@ interface IPublicUser {
     username: string,
     email: string,
     createdAt: string,
-    updatedAt: string,
-    watchlist: [IWatchlist]
+    updatedAt: string
+    watchlist:[IWatchlist]
 }
 
 interface IWatchlist {

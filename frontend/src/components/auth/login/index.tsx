@@ -28,9 +28,7 @@ const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
                 margin={'normal'} label="Email" variant="outlined"
                 placeholder={'Введите ваш email'}
                 helperText={errors.email ? `${errors.email.message}` : ''}
-                {...register('email', {
-                    required: 'Это обязательное поле',
-                })}
+                {...register('email')}
             />
             <TextField
                 error={!!errors.password}
@@ -39,10 +37,7 @@ const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
                 label="Password" variant="outlined"
                 placeholder={'Введите ваш пароль'}
                 helperText={errors.password ? `${errors.password.message}` : ''}
-                {...register('password', {
-                    required: 'Это обязательное поле',
-                    minLength: 6
-                })}
+                {...register('password')}
             />
             <Button
                 type={'submit'}
