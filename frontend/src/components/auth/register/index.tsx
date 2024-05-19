@@ -1,12 +1,14 @@
 import React, {JSX} from 'react';
-import {Button, TextField, Typography} from "@mui/material";
+import {TextField, Typography} from "@mui/material";
 import {IPropsRegister} from "../../../common/types/auth";
+import {AppButton} from "../../app-button";
 
 const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Element => {
     const {
         register,
         errors,
-        navigate
+        navigate,
+        classes
     } = props
 
     return (
@@ -14,7 +16,7 @@ const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Elem
             <Typography
                 variant="h2"
                 padding={3}
-                fontFamily={'Poppins'}
+                fontSize={32}
                 textAlign={'center'}
             >
                 Регистрация
@@ -22,7 +24,6 @@ const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Elem
             <Typography
                 variant="body1"
                 marginBottom={3}
-                fontFamily={'Poppins'}
                 textAlign={'center'}
             >
                 Введите данные для регистрации
@@ -83,18 +84,18 @@ const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Elem
                     required: 'Это обязательное поле',
                 })}
             />
-            <Button
+            <AppButton
                 type={'submit'}
-                sx={{fontFamily: 'Poppins', marginTop: 2, marginBottom: 2, width: '60%'}}
+                sx={{marginTop: 2, marginBottom: 2, width: '60%'}}
                 variant="contained"
             >
                 Регистрация
-            </Button>
+            </AppButton>
             <Typography
                 variant="body1"
-                sx={{fontFamily: 'Poppins'}}>
+            >
                 У вас есть аккаунт?
-                <span className={'incitingText'} onClick={() => navigate('/login')}>
+                <span className={classes.incitingText} onClick={() => navigate('/login')}>
                     Авторизация
                 </span>
             </Typography>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, JSX} from 'react';
+import {useEffect, useState, JSX, FC} from 'react';
 import {
     Box,
     Drawer,
@@ -20,8 +20,9 @@ import {FlexBetween} from "../flex-beetween";
 import {navMenu} from "../../common/moks/navigate";
 import Logo from '../../assets/images/sidebar/logo.svg'
 import {useStyles} from "./styles";
+import {ISidebarProps} from "../../common/types/sidebar";
 
-export const SidebarComponent = (props: any) => {
+export const SidebarComponent: FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => {
     const [active, setActive] = useState('')
     const {isNonMobile, drawerWidth, isOpen, setIsOpen} = props
     const classes = useStyles();
@@ -30,13 +31,16 @@ export const SidebarComponent = (props: any) => {
     const theme = useTheme();
 
     useEffect(() => {
-        setActive(pathname.substring(1))
+        setActive(pathname)
     }, [pathname]);
 
     const renderNavMenu = navMenu.map((item: any): JSX.Element => {
         return (
             <ListItem key={item.id}>
-                <ListItemButton className={classes.navItem} onClick={() => navigate(`${item.path}`)}>
+                <ListItemButton
+                    onClick={() => navigate(`${item.path}`)}
+                    className={active === item.path ? `${classes.navItem} ${classes.active}` : classes.navItem}
+                >
                     <ListItemIcon>
                         {item.icon}
                     </ListItemIcon>

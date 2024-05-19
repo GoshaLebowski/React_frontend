@@ -1,4 +1,5 @@
 import {FieldErrors, FieldValues, UseFormRegister} from "react-hook-form";
+import {ClassNameMap} from "@mui/styles";
 
 export interface LoginFormValues {
     email: string;
@@ -19,6 +20,7 @@ export interface IPropsLogin<
     navigate: (to: string) => void;
     register: UseFormRegister<TContext>;
     errors: FieldErrors<TFieldValues>;
+    classes: ClassNameMap<"form" | "root" | "incitingText">;
 }
 
 export interface IPropsRegister<
@@ -28,6 +30,7 @@ export interface IPropsRegister<
     navigate: (to: string) => void;
     register: UseFormRegister<TContext>;
     errors: FieldErrors<TFieldValues>;
+    classes: ClassNameMap<"form" | "root" | "incitingText">;
 }
 
 export interface IAuthState {
