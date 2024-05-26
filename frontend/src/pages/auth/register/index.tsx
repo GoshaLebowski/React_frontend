@@ -1,14 +1,15 @@
 import React, {JSX} from 'react';
 import {TextField, Typography} from "@mui/material";
 import {IPropsRegister} from "../../../common/types/auth";
-import {AppButton} from "../../../components/app-button";
+import {AppLoadingButton} from "../../../components/loading-button";
 
 const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Element => {
     const {
         register,
         errors,
         navigate,
-        classes
+        classes,
+        loading
     } = props
 
     return (
@@ -84,13 +85,14 @@ const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Elem
                     required: 'Это обязательное поле',
                 })}
             />
-            <AppButton
+            <AppLoadingButton
                 type={'submit'}
                 sx={{marginTop: 2, marginBottom: 2, width: '60%'}}
                 variant="contained"
+                loading={loading}
             >
                 Регистрация
-            </AppButton>
+            </AppLoadingButton>
             <Typography
                 variant="body1"
             >

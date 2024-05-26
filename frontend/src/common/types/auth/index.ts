@@ -21,6 +21,7 @@ export interface IPropsLogin<
     register: UseFormRegister<TContext>;
     errors: FieldErrors<TFieldValues>;
     classes: ClassNameMap<"form" | "root" | "incitingText">;
+    loading: boolean;
 }
 
 export interface IPropsRegister<
@@ -31,11 +32,13 @@ export interface IPropsRegister<
     register: UseFormRegister<TContext>;
     errors: FieldErrors<TFieldValues>;
     classes: ClassNameMap<"form" | "root" | "incitingText">;
+    loading: boolean;
 }
 
 export interface IAuthState {
     user: IPublicUser,
-    isLogged: boolean
+    isLogged: boolean,
+    isLoading: boolean
 }
 
 interface IPublicUser {
