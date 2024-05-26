@@ -1,10 +1,16 @@
 import React, {JSX} from 'react';
 import {TextField, Typography} from "@mui/material";
 import {IPropsLogin} from "../../../common/types/auth";
-import {AppButton} from "../../../components/app-button";
+import {AppLoadingButton} from "../../../components/loading-button";
 
 const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
-    const {navigate, register, errors, classes} = props;
+    const {
+        navigate,
+        register,
+        errors,
+        classes,
+        loading
+    } = props;
     return (
         <>
             <Typography
@@ -39,13 +45,14 @@ const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
                 helperText={errors.password ? `${errors.password.message}` : ''}
                 {...register('password')}
             />
-            <AppButton
+            <AppLoadingButton
+                loading={loading}
                 type={'submit'}
                 sx={{marginTop: 2, marginBottom: 2, width: '60%'}}
                 variant="contained"
             >
                 Войти
-            </AppButton>
+            </AppLoadingButton>
             <Typography
                 variant="body1"
             >

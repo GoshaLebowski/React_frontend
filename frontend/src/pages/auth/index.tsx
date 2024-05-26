@@ -1,18 +1,16 @@
-import React, {JSX} from 'react';
-import {useLocation, useNavigate} from "react-router-dom";
+import React, { JSX } from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
 import LoginPage from "./login";
 import RegisterPage from "./register";
-import {Box, GlobalStyles} from "@mui/material";
-import {instance} from "../../utils/axios";
-import {useAppDispatch} from "../../utils/hook";
-import {login} from "../../store/slice/auth";
-import {AppErrors} from "../../common/errors";
-import {useForm, SubmitHandler, FieldValues} from "react-hook-form";
-import {yupResolver} from '@hookform/resolvers/yup';
-import {LoginSchema, RegisterSchema} from "../../utils/yup";
-import {LoginFormValues, RegisterFormValues} from "../../common/types/auth";
+import { Box, GlobalStyles } from "@mui/material";
+import {useAppDispatch, useAppSelector} from "../../utils/hook";
+import { AppErrors } from "../../common/errors";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { LoginSchema, RegisterSchema } from "../../utils/yup";
 import axios from "axios";
-import {useStyles, globalStyles} from "./styles";
+import { useStyles, globalStyles } from "./styles";
+import {loginUser, registerUser} from "../../store/thunks/auth";
 
 const AuthRootComponent: React.FC = (): JSX.Element => {
     const location = useLocation();
@@ -22,39 +20,30 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
 
     const {
         register,
-        formState: {errors},
+        formState: { errors },
         handleSubmit
     } = useForm({
         resolver: yupResolver(location.pathname === '/login' ? LoginSchema : RegisterSchema),
     });
+    const loading = useAppSelector((state) => state.auth.isLoading);
 
-    const handleSubmitForm: SubmitHandler<FieldValues> = async ({
-        email,
-        password,
-        confirmPassword,
-        firstName,
-        username
-    }) => {
+    const handleSubmitForm: SubmitHandler<FieldValues> = async (data: any) => {
         try {
             if (location.pathname === '/login') {
-                const userData: LoginFormValues = {
-                    email,
-                    password
-                };
-                const user = await instance.post('auth/login', userData);
-                dispatch(login(user.data));
-                navigate('/');
-            } else {
-                if (password === confirmPassword) {
-                    const userData: RegisterFormValues = {
-                        firstName,
-                        username,
-                        email,
-                        password,
-                    };
-                    const newUser = await instance.post('auth/register', userData);
-                    dispatch(login(newUser.data));
+                try {
+                    await dispatch(loginUser(data));
                     navigate('/');
+                } catch (e) {
+                    return e;
+                }
+            } else {
+                if (data.password === data.confirmPassword) {
+                    try {
+                        await dispatch(registerUser(data));
+                        navigate('/');
+                    } catch (e) {
+                        return e;
+                    }
                 } else {
                     alert(AppErrors.PasswordDoNotMatch);
                 }
@@ -91,6 +80,7 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
                             register={register}
                             errors={errors}
                             classes={classes}
+                            loading={loading}
                         />
                     ) : location.pathname === '/register' ? (
                         <RegisterPage
@@ -98,6 +88,7 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
                             register={register}
                             errors={errors}
                             classes={classes}
+                            loading={loading}
                         />
                     ) : null}
                 </Box>
